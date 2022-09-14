@@ -1,6 +1,5 @@
 package com.homework.HomeWork26.services;
 
-import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.stereotype.Service;
 import com.homework.HomeWork26.employees.Employee;
 import com.homework.HomeWork26.exception.EmployeeAlreadyAddedException;
@@ -23,9 +22,8 @@ public class EmployeeService {
         return Collections.unmodifiableCollection(employees.values());
     }
 
-    public Employee addEmployee(String firstName,
-                                String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee addEmployee(String firstName, String lastName, int department, double salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -36,18 +34,16 @@ public class EmployeeService {
         throw new EmployeeArrayIsFullException();
     }
 
-    public Employee findEmployee(String firstName,
-                                 String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee findEmployee(String firstName, String lastName, int department, double salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
             return employees.get(employee.getFullName());
         }
         throw new EmployeeNotFoundException();
     }
 
-    public Employee removeEmployee(String firstName,
-                                   String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee removeEmployee(String firstName, String lastName, int department, double salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
             return employees.remove(employee.getFullName());
         }
