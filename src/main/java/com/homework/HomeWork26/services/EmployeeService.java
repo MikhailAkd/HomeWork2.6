@@ -10,24 +10,33 @@ import java.util.*;
 
 @Service
 public class EmployeeService {
-    private static final int countEmployees = 5;
+    private static final int COUNTEMPLOYEES = 5;
 
-    private final Map<String, Employee> employees;
+    private final Map<String, Employee> employees = new HashMap<>();
 
-    public EmployeeService() {
-        this.employees = new HashMap<>();
+    private final CheckService checkService;
+
+    public EmployeeService(CheckService checkService) {
+        this.checkService = checkService;
     }
 
     public Collection<Employee> getAll() {
         return Collections.unmodifiableCollection(employees.values());
     }
 
-    public Employee addEmployee(String firstName, String lastName, int department, double salary) {
-        Employee employee = new Employee(firstName, lastName, department, salary);
+    public Employee addEmployee(String firstName,
+                                String lastName,
+                                int department,
+                                double salary) {
+        Employee employee = new Employee(
+                checkService.checkFirstName(firstName),
+                checkService.checkLastName(lastName),
+                department,
+                salary);
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         }
-        if (employees.size() < countEmployees) {
+        if (employees.size() < COUNTEMPLOYEES) {
             employees.put(employee.getFullName(), employee);
             return employee;
         }
