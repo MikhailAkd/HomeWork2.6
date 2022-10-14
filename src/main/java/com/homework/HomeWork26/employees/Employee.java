@@ -39,7 +39,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "ФИО: " + firstName + " " + lastName + " Отдел: " + department + "Зарплата: " + salary;
+        return "FullName: " + firstName + " " + lastName + " Department: " + department + " " + "Salary: " + salary;
     }
 
     @Override
@@ -53,5 +53,9 @@ public class Employee {
     @Override
     public int hashCode() {
         return Objects.hash(lastName, firstName, department, salary);
+    }
+
+    public boolean isEqualTo(Employee expectedEmployee) {
+        return false;
     }
 }
